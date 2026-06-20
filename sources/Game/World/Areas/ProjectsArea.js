@@ -1502,6 +1502,7 @@ export class ProjectsArea extends Area
 
         // Update description panel
         const descText = document.querySelector('.js-project-description-text')
+        const descLinks = document.querySelector('.js-project-description-links')
         if(descText && this.navigation.current.description)
         {
             descText.textContent = this.navigation.current.description
@@ -1509,6 +1510,26 @@ export class ProjectsArea extends Area
         else if(descText)
         {
             descText.textContent = ''
+        }
+
+        if(descLinks)
+        {
+            descLinks.innerHTML = ''
+            const links = this.navigation.current.links || []
+
+            for(const item of links)
+            {
+                if(!item?.url)
+                    continue
+
+                const link = document.createElement('a')
+                link.className = 'button project-description-button'
+                link.href = item.url
+                link.target = '_blank'
+                link.rel = 'noopener noreferrer'
+                link.textContent = item.label || 'Link to Project'
+                descLinks.appendChild(link)
+            }
         }
 
         // Change image
