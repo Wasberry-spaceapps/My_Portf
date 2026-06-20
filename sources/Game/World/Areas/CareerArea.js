@@ -89,17 +89,17 @@ export class CareerArea extends Area
         {
             const canvas = document.createElement('canvas')
             canvas.width = 512
-            canvas.height = 64
+            canvas.height = 80
             const ctx = canvas.getContext('2d')
             ctx.fillStyle = '#000000'
-            ctx.fillRect(0, 0, 512, 64)
+            ctx.fillRect(0, 0, 512, 80)
             ctx.textAlign = 'center'
             ctx.fillStyle = '#ffffff'
-            ctx.font = 'bold 22px Arial, sans-serif'
-            ctx.fillText(title, 256, 22)
-            ctx.font = '15px Arial, sans-serif'
+            ctx.font = 'bold 28px Arial, sans-serif'
+            ctx.fillText(title, 256, 30)
+            ctx.font = '19px Arial, sans-serif'
             ctx.fillStyle = '#dddddd'
-            ctx.fillText(subtitle, 256, 46)
+            ctx.fillText(subtitle, 256, 60)
             const tex = new THREE.Texture(canvas)
             tex.flipY = false
             tex.minFilter = THREE.LinearFilter
