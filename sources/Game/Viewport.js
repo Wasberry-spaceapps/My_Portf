@@ -18,6 +18,13 @@ export class Viewport
 
         this.width = bounding.width
         this.height = bounding.height
+
+        if(this.width === 0 || this.height === 0)
+        {
+            this.width = window.innerWidth
+            this.height = window.innerHeight
+        }
+
         this.ratio = this.width / this.height
 
         this.pixelRatioPure = window.devicePixelRatio

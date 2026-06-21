@@ -53,6 +53,7 @@ export class ProjectsArea extends Area
         this.setGrinder()
         this.setAnvil()
         this.setAchievement()
+        this.setProjectNav()
 
         this.changeProject(0, ProjectsArea.DIRECTION_NEXT, false, true)
 
@@ -111,6 +112,10 @@ export class ProjectsArea extends Area
 
     setInputs()
     {
+        this.game.menu.events.on('open', () => this.close());
+        this.game.modals.items.get('map').events.on('open', () => this.close());
+        this.game.player.events.on('respawn', () => this.close());
+        
         // this.game.inputs.events.on('backward', () =>
         // {
         //     this.close()
@@ -171,6 +176,30 @@ export class ProjectsArea extends Area
             if(this.state === ProjectsArea.STATE_OPEN)
                 this.close()
         })
+    }
+
+    setProjectNav()
+    {
+        this.projectNav = {};
+        this.projectNav.container = document.querySelector('.js-project-nav');
+        this.projectNav.previousButton = this.projectNav.container.querySelector('.js-project-nav-button-previous');
+        this.projectNav.nextButton = this.projectNav.container.querySelector('.js-project-nav-button-next');
+        this.projectNav.closeButton = this.projectNav.container.querySelector('.js-project-nav-button-close');
+
+        this.projectNav.previousButton.addEventListener('click', () =>
+        {
+            this.previous();
+        });
+
+        this.projectNav.nextButton.addEventListener('click', () =>
+        {
+            this.next();
+        });
+
+        this.projectNav.closeButton.addEventListener('click', () =>
+        {
+            this.close();
+        });
     }
 
     setCinematic()
@@ -1357,6 +1386,9 @@ export class ProjectsArea extends Area
         const descPanel = document.querySelector('.js-project-description')
         if(descPanel) descPanel.classList.add('is-visible')
 
+        // Floating Nav
+        if(this.projectNav.container) this.projectNav.container.classList.add('is-visible')
+
         // Achievements
         this.game.achievements.setProgress('projects', this.navigation.current.title)
     }
@@ -1381,6 +1413,9 @@ export class ProjectsArea extends Area
         // Description panel
         const descPanel = document.querySelector('.js-project-description')
         if(descPanel) descPanel.classList.remove('is-visible')
+
+        // Floating Nav
+        if(this.projectNav.container) this.projectNav.container.classList.remove('is-visible')
 
         // Input filters
         this.game.inputs.filters.delete('cinematic')

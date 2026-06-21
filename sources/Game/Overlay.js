@@ -125,6 +125,7 @@ export class Overlay
 
     hide(callback)
     {
+        this.game.audio.init()
         this.inverted.value = 1
         this.sounds.hide.play()
         gsap.to(this.progress, { value: 0, ease: 'power1.inOut', overwrite: true, duration: 4, onComplete: () =>
